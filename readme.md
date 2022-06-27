@@ -42,11 +42,13 @@ Prometheus web UI can be visualized at `http://localhost:9090` while Grafana at 
 Note that the Flask Web app expose a `/metrics` endpoint:
 ![alt_text](https://github.com/R3DRUN3/prometheus-demo/blob/main/Images/metrics.png)
 this is the default endpoint that Prometheus will scrape.
+<br>
 Prometheus implements a pull engine in which the server scrapes the specified enpoints to gather required metrics.
 
 Refresh the web app url to register some metrics (this project make use of [Prometheus Flask Exporter](https://github.com/rycus86/prometheus_flask_exporter)).
 
 At this point you can login on the Grafana Web UI with the credentials that you find in `docker-compose.yml`.
+<br>
 Go to `add data source`, select `Prometheus` (the first one) and in the url type `http:prometheus:9090` and save.
 Now is time to create our dashboard.
 <br>
@@ -73,4 +75,9 @@ Prometheus also posses an allerting engine therefore another test that can be do
 ![alt_text](https://github.com/R3DRUN3/prometheus-demo/blob/main/Images/prometheus-alert.png)
 
 Note that this is not a production ready alert, to see how to configure a complete alerting system, see the official [docs](https://prometheus.io/docs/alerting/latest/overview/).
+
+All this is enough to start experimenting with this technology.
+The advice is to study the entire project and the various files in detail to understand how these 3 elements fit together to produce a complete monitoring stack.
+<br>
+Afterwards it is recommended to become familiar with Grafana and to build custom dashboards using PromQL (Prometheus query language).
 
