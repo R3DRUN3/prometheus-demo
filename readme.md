@@ -29,6 +29,48 @@ Fire up the monitoring stack with docker-compose:
 docker-compose up
 ```
 This command will fire up 3 entities:
-1. A flask web app container
-2. A Prometheus server container
-3. A grafana server container
+
+1. A containerized flask web app.
+2. A containerized Prometheus server.
+3. A containerized Grafana instance.
+
+The web app UI can be visualized at `http://localhost:8887`:
+![alt_text](https://github.com/R3DRUN3/prometheus-demo/blob/main/Images/webapp.png)
+
+Prometheus web UI can be visualized at `http://localhost:9090` while Grafana at `http://localhost:3000`
+
+Note that the Flask Web app expose a `/metrics` endpoint:
+![alt_text](https://github.com/R3DRUN3/prometheus-demo/blob/main/Images/metrics.png)
+this is the default endpoint that Prometheus will scrape.
+Prometheus implements a pull engine in which the server scrapes the specified enpoints to gather required metrics.
+
+Refresh the web app url to register some metrics (this project make use of [Prometheus Flask Exporter](https://github.com/rycus86/prometheus_flask_exporter)).
+
+At this point you can login on the Grafana Web UI with the credentials that you find in `docker-compose.yml`.
+Go to `add data source`, select `Prometheus` (the first one) and in the url type `http:prometheus:9090` and save.
+Now is time to create our dashboard.
+<br>
+Go to dashboard and import the json in `grafana/dashboards`.
+You should see the following dashboard:
+![alt_text](https://github.com/R3DRUN3/prometheus-demo/blob/main/Images/graphana-dashboard.png)
+
+This dashboard collects the following metrics:
+
+1. Scrape duration (seconds).
+2. Web App Cpu Usage (seconds).
+3. Total http request to the web app.
+
+Now try to launch a stress test with the following command.
+```console
+webapp_stress_test.sh
+```
+and observe how all the charts changes in near real time (they will spike up).
+
+Prometheus also posses an allerting engine therefore another test that can be done is to stop the web app container
+<br>
+(`docker stop <containerid>`) and verify that prometheus raises the alert:
+
+![alt_text](https://github.com/R3DRUN3/prometheus-demo/blob/main/Images/prometheus-alert.png)
+
+Note that this is not a production ready alert, to see how to configure a complete alerting system, see the official [docs](https://prometheus.io/docs/alerting/latest/overview/).
+
