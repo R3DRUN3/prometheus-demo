@@ -16,7 +16,7 @@ It provides charts, graphs, and alerts for the web when connected to supported d
 As a visualization tool, Grafana is a popular component in monitoring stacks, often used in combination with time series databases such as InfluxDB, Prometheus and Graphite.
 
 
-This repo contains everything you need to get started with modern monitoring with prometheus and Grafana
+This repo contains everything you need to get started with modern monitoring with prometheus and Grafana!
 
 ## Instructions
 clone this repo:
