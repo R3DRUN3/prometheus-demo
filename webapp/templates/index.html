@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Prometheus Metrics</title>
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script>
+      $(document).ready(function() {
+        var a =  Math.floor((Math.random() * 100000) + 1);; 
+        $('#loaded_snippets').text(a);
+            a++;
+       });
+      </script>
+    </head>
+    <body>
+      <div class="container">
+        <h1>CODING NOTES APP</h1>
+      </div>
+      <div class="container">
+        <h3>Please wait, we are loading your snippets! 👨‍💻 📝</h3>
+      </div>
+      <div class ="container">
+        <h3>Loaded snippets: </h3>
+        <h3 id="loaded_snippets" style="color: rgb(4, 83, 34)">0</h3>
+      </div>
+      <div class="load-container load1">
+        <div class="loader">Loading</div>
+      </div>
+      <div id="connection-status">Connected</div>
+      <img src="{{url_for('static', filename='snippets/snippet_1.png')}}" align="left" class="scaling"/>
+      <img src="{{url_for('static', filename='snippets/snippet_2.png')}}" align="middle" class="scaling"/>
+    </body>
+</html>
+
+
+
+
+

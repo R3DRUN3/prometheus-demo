@@ -1,0 +1,45 @@
+version: '3'
+
+# Define a specific network for this docker compose stack (Flask Web App + Prometheus + Grafana)
+networks:
+  prometheus_network:
+
+services:
+  # Prometheus Server
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus-configs:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/webapp.yml'
+    ports:
+      - 9090:9090
+    networks:
+      - prometheus_network
+    restart: unless-stopped
+
+  # Demo Flask web App
+  webapp:
+    build:
+      context: ./webapp
+    ports:
+      - 8887:8887
+    networks:
+      - prometheus_network
+    restart: unless-stopped
+
+  # Grafana
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    environment:
+      GF_SECURITY_ADMIN_USER: grafana
+      GF_SECURITY_ADMIN_PASSWORD: secret
+    volumes:
+      - ./grafana/:/etc/grafana/provisioning/
+    networks:
+      - prometheus_network
+    restart: unless-stopped
