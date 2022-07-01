@@ -65,7 +65,7 @@ This dashboard collects the following metrics:
 
 Now try to launch a stress test with the following command.
 ```console
-webapp_stress_test.sh
+sh webapp_stress_test.sh
 ```
 and observe how all the charts changes in near real time (they will spike up).
 
